@@ -27,6 +27,8 @@ List<Evento> allevents = eventProgram.GetEvent();
 
 Console.WriteLine(eventProgram.PrintEvent(allevents));
 
+Console.WriteLine(eventProgram.NumberEvents());
+
 
 Console.WriteLine("--------------------------");
 
