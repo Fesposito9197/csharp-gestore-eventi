@@ -13,7 +13,7 @@ namespace GestoreEventi
         DateTime data;
         int maxcapacity;
         int reservedseats;
-        string error = "Hai inserito un dato non valido";
+     
 
         public Evento(string titolo, DateTime data, int maxcapacity)
         {
@@ -25,24 +25,43 @@ namespace GestoreEventi
 
         public int PrenotaPosti( int _posti)
         {
-            if (data > DateTime.Now && maxcapacity > reservedseats)
+            try
             {
-                return reservedseats += _posti;
+                if (data > DateTime.Now && maxcapacity > reservedseats)
+                {
+                    return reservedseats += _posti;
+                }
+                else
+                {
+                    throw new Exception("Posti per l'evento terminati");
+                }
+
             }
-            else
+            catch (Exception e) 
             {
-                throw new Exception("Posti per l'evento terminati");
+                Console.WriteLine("Posti per l'evento terminati");
+                return 0;
             }
         }
         public int DisdiciPosti(int _posti)
         {
-            if (data > DateTime.Now &&  reservedseats > _posti)
+            try
             {
-                return reservedseats -= _posti; 
+                if (data > DateTime.Now &&  reservedseats > _posti)
+                {
+                    return reservedseats -= _posti; 
+                }
+                else 
+                {
+                    throw new Exception("Non puoi togliere piu posti di quelli che hai prenotato!!");
+                    
+                }
+
             }
-            else 
+            catch(Exception e) 
             {
-                throw new Exception("Non puoi togliere piu posti di quelli che hai prenotato!!");
+                Console.WriteLine("Non puoi togliere piu posti di quelli che hai prenotato!!");
+                return _posti;
                     
             }
         }
@@ -57,14 +76,23 @@ namespace GestoreEventi
         }
         public string setTitolo( string _titolo)
         {
-            if (_titolo != null && _titolo != "")
+            try
             {
-                return this.titolo = _titolo;
-            }
-            else
+                if (_titolo != null && _titolo != "")
+                {
+                    return this.titolo = _titolo;
+                }
+                else
+                {
+                   
+                    throw new Exception();
+                }
+
+            }catch (Exception e)
             {
-                Console.WriteLine(error);
-                throw new Exception();
+
+
+                return "titolo non valido";
             }
         }
             
@@ -73,16 +101,25 @@ namespace GestoreEventi
         public DateTime setData(DateTime _data)
         {
             var currentData = DateTime.Now;
+            try
+            {
 
-            if (_data > currentData)
-            {
-                return this.data = _data;
+                if (_data > currentData)
+                {
+                    return this.data = _data;
+                }
+                else
+                {
+                    
+                    throw new Exception();
+                }
             }
-            else
+            catch(Exception e) 
             {
-                Console.WriteLine(error);
-                throw new Exception();
+                Console.WriteLine("Hai inserito una data non valida ed e stata inserita la data odierna!!");
+                return currentData;
             }
+
             
         }
         public DateTime getData() 
@@ -95,15 +132,24 @@ namespace GestoreEventi
         }
         public int setMaxCapacity(int _capacity)
         {
-            if (_capacity < 0)
+            try
             {
+                if (_capacity < 0)
+                {
                 
-                Console.WriteLine(error);
-                throw new Exception();      
+                   
+                    throw new Exception();      
+                }
+                else
+                {
+                    return this.maxcapacity = _capacity; 
+                }
+
             }
-            else
+            catch( Exception e)
             {
-                return this.maxcapacity = _capacity; 
+                Console.WriteLine("Hai inserito un dato non valido");
+                return 0;
             }
 
         }
